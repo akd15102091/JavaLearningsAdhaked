@@ -1,0 +1,28 @@
+1) User should be able to create files/folders
+2) Delete folders
+3) write content to file at specified path
+4) File/folder versioning should be there
+
+
+
+-------
+
+consistency
+scalability
+
+
+-------
+
+
+
+
+ENtities :
+1) Entry
+    - name
+    - isDirectory
+    - parentDirectory
+
+
+2) File extends Entry
+
+3) Directory extends Entry

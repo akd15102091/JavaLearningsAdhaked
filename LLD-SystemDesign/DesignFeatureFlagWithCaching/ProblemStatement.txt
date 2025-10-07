@@ -1,0 +1,33 @@
+Design a Feature Flag Service that:
+    - Allows enabling/disabling features for users/groups/environments.
+    - Supports CRUD operations on flags.
+    - Uses a cache for low-latency reads.
+    - Ensures eventual consistency between cache and DB.
+    - Must be thread-safe to handle concurrent access and updates.
+
+
+
+========== What is a Feature Flag? ==============
+A feature flag (aka toggle) allows enabling/disabling a feature for:
+
+All users
+
+Specific environments (e.g., dev, staging, prod)
+
+Specific users (targeted rollout)
+
+Why Cache?
+Feature flags are read-heavy (every request may check them).
+
+To avoid querying DB every time, we use an in-memory cache (ConcurrentHashMap in Java).
+
+Must handle concurrent access, so thread safety is critical.
+
+✅ Real-world Example
+    - Suppose you are rolling out a new search feature:
+        -- Globally disabled
+        -- But you want to enable it only for user123 in prod.
+
+    - The system should return:
+        -- Enabled for user123 in prod
+        -- Disabled for everyone else

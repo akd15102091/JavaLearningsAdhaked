@@ -1,0 +1,42 @@
+Problem: Design a backend system for an e-commerce website that displays a list of merchandise. 
+The system should focus on browsing, not purchasing.
+
+
+
+Entity:
+ 1) Item 
+    - itemId
+    - price
+ 2) Product
+    - id
+    - category
+    - List<Item> items
+    - rating
+    - buyCount
+    - 
+    
+ 3) Category 
+    - enum
+
+ 4) Controller
+    - List<Products> Products
+
+    -- searchByCategory(string categoryType)
+    -- filterByRating(string categoryType)
+    -- filterByBuyCount(string categoryType)
+
+
+
+
+
+
+
+
+
+Requirements:
+Popularity-based Display: Show top items based on popularity, considering factors like the number of times bought and average rating.
+Offline Batch Processing: Build a pipeline to process popularity data offline.
+Scalability: Handle 50 million items across 10,000 categories with a p99 RPS of 10,000.
+Functional Requirements:
+Display items by category.
+Display items by popularity.

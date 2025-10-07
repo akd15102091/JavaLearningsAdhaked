@@ -1,0 +1,25 @@
+- The Pub-Sub system should allow publishers to publish messages to specific topics.
+
+- Subscribers should be able to subscribe to topics of interest and receive messages published to those topics.
+
+- The system should support multiple publishers and subscribers.
+
+- Messages should be delivered to all subscribers of a topic in real-time.
+
+- The system should handle concurrent access and ensure thread safety.
+
+- The Pub-Sub system should be scalable and efficient in terms of message delivery.
+
+
+
+======================================
+
+    - Observer Pattern: Subscribers register with a topic (observable), and when a publisher sends a message, all subscribers are notified.
+
+    - Message Queue (BlockingQueue<String> messageQueue): Decouples message publishing and delivery. Ensures subscribers process messages asynchronously.
+
+    - Background Dispatcher Thread (startMessageDispatcher()): Uses take() to block until a message is available. Ensures messages are delivered in the order they are received.
+
+    - Improved Scalability:
+        Publishers don't need to wait for subscribers.
+        Subscribers receive messages at their own pace.

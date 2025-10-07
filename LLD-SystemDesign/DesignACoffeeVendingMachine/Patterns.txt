@@ -1,0 +1,8 @@
+Pattern	- Why We Used It?
+
+Factory Pattern - To create different beverage objects dynamically.
+Singleton Pattern -	Ensures InventoryManager is a single instance.
+Observer Pattern -	Alerts when ingredients are low.
+Command Pattern -	Each beverage order acts as a command.
+State Pattern -	Manages machine states (ON/OFF).
+Decorator Pattern (Optional)	Can be extended to add extra ingredients.

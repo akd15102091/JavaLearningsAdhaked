@@ -1,0 +1,43 @@
+# Food Delivery Service (LLD)
+
+## Problem Statement
+    - Design and implement a Food Delivery Service system that allows customers to place orders from 
+    restaurants, manages menu items, assigns delivery agents, and tracks order status from placement to delivery.
+
+---
+
+## Requirements
+
+-   Customer Registration:   Customers can register and place orders.
+-   Restaurant Management:   The system manages multiple restaurants, each with its own menu.
+-   Menu Management:   Restaurants can add and update menu items.
+-   Order Placement:   Customers can place orders for menu items from a restaurantManagementSystem.
+-   Order Tracking:   The system tracks the status of each order (e.g., PLACED, PREPARING, OUT_FOR_DELIVERY, DELIVERED).
+-   Delivery Assignment:   Orders are assigned to available delivery agents.
+-   Delivery Agent Management:   The system manages delivery agents and their availability.
+-   Extensibility:   Easy to add new features such as ratings, reviews, or payment integration.
+
+
+====================================================================================
+
+
+## Core Entities
+
+-   FoodDeliveryService:   Main class that manages customers, restaurants, orders, and delivery agents.
+-   Customer:   Represents a customer who can place orders.
+-   Restaurant:   Represents a restaurantManagementSystem with a menu of items.
+-   MenuItem:   Represents an item on a restaurantManagementSystem's menu.
+-   Order:   Represents a customer's order, including items, status, and assigned delivery agent.
+-   DeliveryAgent:   Represents a delivery agent who delivers orders.
+
+
+
+====================================================================================
+
+## Extending the Framework
+
+-   Add ratings and reviews:   Allow customers to rate restaurants and delivery agents.
+-   Add payment integration:   Support online payments.
+-   Add order cancellation or modification:   Allow customers to cancel or modify orders before delivery.
+
+---

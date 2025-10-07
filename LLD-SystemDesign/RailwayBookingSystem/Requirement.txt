@@ -1,0 +1,7 @@
+complete Java code implementing:
+
+✅ Multiple trains
+✅ Multiple dates
+✅ Train search by source, destination, date
+✅ Booking system that ensures proper seat allocation
+✅ Bookings printed per train per date

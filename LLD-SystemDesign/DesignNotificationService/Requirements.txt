@@ -1,0 +1,22 @@
+1. Basic Notification Service
+    - Supports multiple channels – Email, SMS, Push.
+
+    - Channel abstraction using NotificationChannel interface and concrete implementations.
+    - Simple Notification model with recipient, message, and type.
+
+2. User Preferences
+    - Added UserPreferenceService to store & retrieve user’s allowed notification channels.
+    - Before sending a notification, service checks if the channel is enabled for the user.
+    - Prevents sending through unwanted channels.
+
+3. Exception Handling
+    - Introduced NotificationException for handling known issues (invalid channel, delivery failure, etc.).
+    - Caught and logged exceptions in the service layer to avoid system crashes.
+    - Clear separation between:
+        Business errors (e.g., channel not allowed)
+        System errors (e.g., network failure)
+
+4. Simple Retry Mechanism
+    - Added retry logic (fixed number of attempts) for transient failures.
+    - Prevents immediate drop of a message if sending fails once.
+    - Controlled using maxRetries configuration.

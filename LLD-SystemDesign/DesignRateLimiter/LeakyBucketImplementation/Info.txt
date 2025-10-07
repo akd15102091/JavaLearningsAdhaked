@@ -1,0 +1,13 @@
+💧 Leaky Bucket Concept:
+    - Incoming requests go into a queue (bucket).
+    - Requests are processed (leaked) at a constant rate.
+    - If the bucket is full, new requests are dropped.
+
+
+
+✅ Goal: Leaky Bucket per User
+    Each user has:
+        - Their own fixed-capacity queue (bucket)
+        - A dedicated leak rate (number of requests allowed per second)
+        - Requests are dropped if the queue is full
+

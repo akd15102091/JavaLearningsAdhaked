@@ -1,0 +1,43 @@
+# Music Streaming Service (LLD)
+
+## Problem Statement
+    - Design and implement an online music streaming service (like Spotify) that allows users to browse, 
+    search, and play songs, manage playlists, follow artists, and receive recommendations.
+
+---
+
+## Requirements
+
+-  User Management:  Users can register, log in, and manage their profiles.
+-  Browse & Search:  Users can browse and search for songs, albums, and artists.
+-  Playlists:  Users can create, update, and manage playlists.
+-  Playback Controls:  Users can play, pause, skip, and seek within songs.
+-  Recommendations:  The system recommends songs and playlists based on user preferences and listening history.
+-  Follow Artists:  Users can follow artists to get updates and recommendations.
+-  Concurrency:  The system handles concurrent requests and smooth streaming for multiple users.
+-  Scalability:  The system is scalable to handle a large volume of songs and users.
+-  Extensibility:  Easy to add features like social sharing, offline playback, or collaborative playlists.
+
+
+
+====================================================================================
+
+
+
+## Design Patterns Used
+    -  Singleton Pattern:  For `MusicLibrary`, `UserManager`, and `MusicRecommender` to ensure a 
+    single instance.
+
+
+
+====================================================================================
+
+
+
+## Extending the Framework
+
+-  Add social features:  Allow users to share playlists or follow each other.
+-  Add offline playback:  Support downloading songs for offline listening.
+-  Add collaborative playlists:  Allow multiple users to edit a playlist.
+
+---

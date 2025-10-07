@@ -1,0 +1,25 @@
+🔍 Problem Statement: Design a Meeting Scheduler
+
+    # Requirements (Functional):
+        - User can create a meeting by specifying:
+            * Title
+            * Start and end time
+            * List of participants
+
+        - Users can view their schedule
+        - Allow querying available slots for multiple participants
+        - Send Notification to participants, once meeting is scheduled/cancelled    
+
+    # Non-Functional (Optional / Advanced):
+        - Concurrency safety for real-time scheduling
+        - Scale for multiple meeting rooms or multiple time zones
+
+
+========================================
+
+Entities:
+    1) User
+    2) TimeSlot - meeting time slot
+    3) Meeting
+    4) Calender - user specific
+    5) MeetingScheduler

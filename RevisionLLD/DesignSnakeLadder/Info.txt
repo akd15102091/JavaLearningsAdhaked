@@ -1,0 +1,13 @@
+- can be revised
+
+the functional requirements :
+    Board setup – configurable size with snakes and ladders.
+    Players – multiple players starting at position 0.
+    Dice – configurable min/max, default 1–6.
+    Gameplay – turn-based moves, exact roll to win.
+    Thread per player – each player runs in its own thread.
+    Thread safety – synchronized turns with locking.
+    Game isolation – each game runs independently.
+    Game manager (rooms) – manages multiple games with unique IDs.
+    Game control APIs – create, start, and list games.
+    Multiple games in parallel – support concurrent active games.

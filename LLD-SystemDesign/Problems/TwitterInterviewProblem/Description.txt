@@ -1,0 +1,27 @@
+Problem Statement:
+    - Design an in-memory Twitter for ~100 users and ~10,000 tweets, supporting:
+    - Post & delete tweets
+    - Follow & unfollow users
+    - View any user’s profile (user_id, followers, following, tweets)
+    - Retrieve a personalized feed, sortable by different criteria
+
+
+
+
+
+================
+
+entities :
+    1: User 
+        - user_id
+        - name
+        - dob
+        - Set<String> tweetIds // operations O(1)
+        - Set<String> followerIds
+        - Set<String> followingIds
+        
+
+    2: Tweet 
+        - 
+    
+    

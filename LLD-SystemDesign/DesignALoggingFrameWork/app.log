@@ -1,0 +1,2 @@
+LogContent [message=This is a debug message, timestamp=1742492015917, level=DEBUG]
+LogContent [message=This is an information message, timestamp=1742492015919, level=INFO]

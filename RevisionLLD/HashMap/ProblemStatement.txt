@@ -1,0 +1,26 @@
+Here's how you can implement a thread-safe HashMap in Java without using Java's built-in concurrent maps 
+like ConcurrentHashMap.
+
+
+✅ Goal:
+    - Implement a ThreadSafeHashMap<K, V> that:
+    - Is safe to access from multiple threads.
+    - Does not use Java's built-in synchronized collections (Collections.synchronizedMap(), ConcurrentHashMap, etc).
+    - Uses your own synchronization strategy.
+
+💡 Strategy :
+    - We’ll use bucketized locking (also called lock striping):
+    - Divide the map into multiple buckets (array of linked lists).
+    - Each bucket has its own lock.
+    - This allows concurrent access to different buckets with minimal contention.
+
+🧱 Data Structures Used :
+    - Node class: For key-value storage.
+    - Array of buckets: Like in a regular HashMap.
+    - Array of locks: One lock per bucket.
+
+
+✅ Features :
+    - Lock striping (independent locks for buckets).
+    - Thread-safe put, get, and remove.
+    - No built-in Java concurrent maps.

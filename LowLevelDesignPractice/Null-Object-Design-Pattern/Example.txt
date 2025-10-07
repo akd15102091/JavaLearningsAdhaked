@@ -1,0 +1,12 @@
+Example of Null Object Design Pattern
+
+    A car rental service allows customers to rent different types of cars. However, some customers may request
+    a car model that is not available in the rental service’s fleet. When this happens, the rental service
+    needs a way to handle this situation gracefully without causing errors or disruptions to the customer.
+
+
+How Null Object Design Pattern is helpful?
+    The Null Object Design Pattern is helpful in this situation because it allows the rental service to 
+    provide a “null” car object that can be used in place of a real car object when the requested car model
+    is not available. This way, the customer can still use the car object without encountering null reference
+    exceptions or other errors.

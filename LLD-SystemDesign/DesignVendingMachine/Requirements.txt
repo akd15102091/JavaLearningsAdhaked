@@ -1,0 +1,30 @@
+- The vending machine should support multiple products with different prices and quantities.
+
+- The machine should accept coins and notes of different denominations.
+
+- The machine should dispense the selected product and return change if necessary.
+
+- The machine should keep track of the available products and their quantities.
+
+- The machine should handle multiple transactions concurrently and ensure data consistency.
+
+- The machine should provide an interface for restocking products and collecting money.
+
+- The machine should handle exceptional scenarios, such as insufficient funds or out-of-stock products.
+
+
+
+======================================
+
+Breakdown of Design Choices:
+    1) Factory Pattern for Products: If we had multiple product types (e.g., beverages, snacks), we could use a factory to create them dynamically.
+
+    2) State Pattern for Machine States: The vending machine moves through IDLE → PROCESSING_PAYMENT → DISPENSING or OUT_OF_STOCK, ensuring a structured flow.
+
+    3) Strategy Pattern for Payments: Different payment methods (coins, notes) can be plugged in without changing the purchase logic.
+
+    4) Singleton Pattern for Machine: Ensures only one instance of the vending machine manages inventory.
+
+    5) Thread Safety Using Locking: Multiple users can purchase products concurrently without causing inconsistencies.
+
+    This design ensures scalability, flexibility, and concurrency handling. 

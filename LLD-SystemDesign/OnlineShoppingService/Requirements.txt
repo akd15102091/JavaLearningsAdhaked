@@ -1,0 +1,41 @@
+# Online Shopping Service (LLD)
+
+## Problem Statement
+
+    Design and implement an Online Shopping Service that allows users to browse products, add items to a cart, place orders, make payments, and track order status.
+
+---
+
+## Requirements
+
+-  User Management:  Users can register, log in, and manage their profiles.
+-  Product Catalog:  The system manages a catalog of products with details and prices.
+-  Cart Management:  Users can add, update, or remove products in their shopping cart.
+-  Order Placement:  Users can place orders for products in their cart.
+-  Order Tracking:  The system tracks the status of each order (e.g., PLACED, SHIPPED, DELIVERED, CANCELLED).
+-  Payment Processing:  Users can pay for their orders using different payment methods.
+-  Extensibility:  Easy to add new features such as discounts, reviews, or wishlists.
+
+---
+
+## Core Entities
+
+-  OnlineShoppingService:  Main class that manages users, products, carts, orders, and payments.
+-  User:  Represents a user with a unique ID, name, and cart.
+-  Product:  Represents a product with ID, name, description, and price.
+-  Cart:  Represents a user's shopping cart containing order items.
+-  Order:  Represents an order placed by a user, including items, status, and payment.
+-  OrderItem:  Represents an item in an order or cart.
+-  OrderStatus:  Enum for order status (PLACED, SHIPPED, DELIVERED, CANCELLED).
+-  Payment (in payment/):  Represents a payment transaction for an order.
+-  PaymentProcessor (in payment/):  Handles payment logic and validation.
+
+---
+
+## Extending the Framework
+
+-  Add discounts or coupons:  Support promotional pricing.
+-  Add product reviews:  Allow users to review and rate products.
+-  Add wishlists:  Allow users to save products for later.
+
+---

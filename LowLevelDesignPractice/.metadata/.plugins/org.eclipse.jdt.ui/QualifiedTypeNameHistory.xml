@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="ComponentInterface.Pizza"/>
+    <fullyQualifiedTypeName name="ConcreteComponent.PlainPizza"/>
+    <fullyQualifiedTypeName name="DecoratorInterface.PizzaDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ConcreteComponent.PlainPizza"/>
+    <fullyQualifiedTypeName name="ConcreteDecorators.CheeseDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.DecoratorInterface.PizzaDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ComponentInterface.Pizza"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ConcreteDecorators.CheeseDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ConcreteDecorators.MushroomDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ConcreteDecorators.OliveDecorator"/>
+    <fullyQualifiedTypeName name="DecoratorDesignPattern.ConcreteDecorators.PepperoniDecorator"/>
+</qualifiedTypeNameHistroy>

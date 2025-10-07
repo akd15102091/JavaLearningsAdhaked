@@ -1,0 +1,11 @@
+Implement a thread-safe data structure which can keep track of number of incoming
+requests grouped by IP Address over a time window. Add support for grouping by other
+attributes such as BrowserAgent.
+
+Hashmap<String, List<Pair> > mp;
+
+ip1, {5:00, 5:10, 5:15, 5:20}, 
+
+
+
+2 sec;

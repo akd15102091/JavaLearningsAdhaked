@@ -1,0 +1,32 @@
+https://github.com/ashishps1/awesome-low-level-design/blob/main/solutions/java/src/splitwise/README.md
+
+
+Problem Statement
+Design and implement a Splitwise System that allows users to split expenses among groups and individuals. The system should handle expense tracking, balance calculations, and settlement of debts between users.
+
+Requirements
+
+User Management:
+    - Create and manage user profiles
+    - Track user balances
+    - Handle user relationships
+
+Group Management:
+    - Create and manage groups
+    - Add/remove members
+    - Track group expenses
+
+Expense Management:
+    - Add expenses to groups or individuals
+    - Support different split types (EQUAL, EXACT, PERCENTAGE)
+    - Track expense history
+
+Balance Management:
+    - Calculate balances between users
+    - Track who owes whom
+    - Handle settlements
+
+Transaction Management:
+    - Record transactions
+    - Track payment status
+    - Generate balance reports

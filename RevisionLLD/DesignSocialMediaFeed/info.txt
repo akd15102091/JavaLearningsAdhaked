@@ -1,0 +1,6 @@
+Design the low-level design (LLD) for a Social Media Feed system.
+    - Think of a system like Facebook / Instagram where:
+    - Users can create posts (text, images, videos).
+    - Users can follow other users.
+    - A feed shows posts from people you follow, ordered by time (latest first).
+    - Users can like and comment on posts.

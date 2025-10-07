@@ -1,0 +1,68 @@
+Absolutely! Here's a **clear bullet-point list** you can use to explain in an interview how your caching system meets functional requirements:
+
+---
+
+## ✅ Functional Requirements Covered in the Cache System
+
+### 1. **Basic Cache Operations**
+
+* ✅ `put(key, value)` to insert/update values in the cache.
+* ✅ `get(key)` to fetch values from the cache; on a miss, loads from DB (cache-aside behavior).
+* ✅ `remove(key)` to explicitly invalidate a key from the cache.
+
+---
+
+### 2. **Eviction Policies**
+
+* ✅ **LRU (Least Recently Used)** eviction implemented using `LinkedHashMap`.
+* ✅ **LFU (Least Frequently Used)** eviction using frequency maps and min-frequency tracking.
+* 🔁 **Policy is pluggable** via `Cache<K, V>` interface — easily switch between LRU, LFU, etc.
+
+---
+
+### 3. **Cache Invalidation**
+
+* ✅ **Time-based invalidation (TTL)**: Automatically expires stale entries using timestamps.
+* ✅ **Manual invalidation** via `remove()`.
+
+---
+
+### 4. **Write Strategy**
+
+* ✅ **Write-Through** strategy: Ensures data consistency by writing to both cache and database synchronously.
+
+---
+
+### 5. **Data Loading Strategy**
+
+* ✅ **Cache-aside loading**: If data is not found in cache, it's fetched from the DB and populated in the cache.
+
+---
+
+### 6. **Extensibility & Maintainability**
+
+* ✅ **Open-Closed Design** using interface (`Cache<K, V>`): easy to add new eviction strategies (e.g., FIFO, MRU).
+* ✅ Separated concerns: eviction logic is separated from DB logic via `WriteThroughCache` wrapper.
+
+---
+
+### 7. **Thread Safety**
+
+* ✅ Thread-safe operations using `synchronized` blocks in both cache implementations.
+
+---
+
+### 8. **Testability**
+
+* ✅ Supports unit testing with mock/in-memory DB.
+* ✅ Pluggable policy makes it easy to write isolated tests for each eviction strategy.
+
+---
+
+### 9. **Ease of Use in Real Systems**
+
+* ✅ Capacity and TTL are configurable.
+* ✅ Clean interface allows cache to be used as a drop-in in real systems.
+
+---
+

@@ -1,0 +1,7 @@
+We need to design a Job Scheduler that allows:
+    - Users to create jobs (one-time or recurring via cron expression).
+    - Scheduler to execute jobs reliably, with retries (max 3).
+    - Jobs run in parallel (multithreaded execution).
+    - Users can query jobs by id with metadata and current status.
+    - The system should ensure jobs are not lost (at-least-once execution).
+    - Must store job history + state (PENDING, RUNNING, SUCCESS, FAILED).

@@ -1,0 +1,54 @@
+📌 Functional Requirements:
+    1) The system should allow each user/client to make requests at a limited rate.
+    2) Supporting setting limits per user or per api key.
+    3) Requests that exceed the allowed rate should be rejected (or delayed, depending on design).
+    4) The design should be thread-safe
+    5) It should support burst traffic up to a configured limit.
+    6) Rate limit parameters should be configurable :
+        - capacity (maximum number of tokens in the bucket)
+        - refillRate (tokens added per second)
+
+
+⚙️ Non-Functional Requirements:
+    1) High throughput and low latency
+    2) Thread-safe (since multiple threads can access the same bucket)
+    3) Should work in distributed systems (mention that current LLD is for single-machine)
+
+
+
+
+🪣 What is Token Bucket?
+    - A bucket holds tokens (capacity = max burst size).
+    - A token is required to process a request.
+    - Tokens are added at a fixed rate (refillRate).
+    - If the bucket has tokens, the request is allowed (consume 1 token).
+    - If the bucket is empty, the request is rejected.
+
+
+💧 Leaky Bucket (Alternative)
+    - A fixed outflow rate of requests.
+    - Incoming requests are queued.
+    - Requests are processed at a constant rate, even during bursts.
+
+
+
+=============== Interview Tips =====================
+
+    - When to use Token Bucket: allows burst traffic, controls average rate.
+    - When to use Leaky Bucket: smoothens traffic, ensures constant outflow.
+    - Discuss scaling with Redis or cluster-wide coordination.
+    - Talk about memory overhead per user.
+    - Extend to support different rate limits per endpoint/user tier.
+
+
+
+=============== Interview Notes =====================
+
+| Token Bucket                 | Leaky Bucket                                         |
+| ---------------------------- | ---------------------------------------------------- |
+| Allows bursts                | Smooths traffic                                      |
+| Rejects when no tokens       | Rejects when queue full                              |
+| Easier for API rate limiting | Easier for queue-based flows (e.g., message systems) |
+| Based on tokens              | Based on processing rate                             |
+
+
