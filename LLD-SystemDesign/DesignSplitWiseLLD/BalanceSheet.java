@@ -7,6 +7,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 public class BalanceSheet {
+    // A - 
+    // B - 
+    // C-
+    // <A,<B,600>>, <B,<A,-600>>
+    // <A, <C,1000>>
     // Map of balances: balances.get(A).get(B) means how much B owes A
     private final Map<User, Map<User, Double>> balances;
 

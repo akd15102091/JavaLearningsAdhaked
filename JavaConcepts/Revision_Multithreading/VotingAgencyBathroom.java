@@ -2,10 +2,6 @@ package Revision_Multithreading;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-// import java.util.concurrent.ArrayBlockingQueue;
-// import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -33,14 +29,28 @@ class Bathroom{
     private Condition condition = lock.newCondition();
     Queue<Person> waitingQueue = new LinkedList<>() ;
 
-    public boolean canEnter(Person p){
-        if(this.currentGroup.equals("N")) return true;
-        // if(p.getGroup().equals(currentGroup) && currentCapacity<MAX_CAPACITY ) return true;
-        if(p.getGroup().equals(currentGroup) && currentCapacity<MAX_CAPACITY && waitingQueue.peek()==p) return true;
+    /**
+     * Fairness Intuition:
+        - Order must be maintained between groups (R vs D), but within the same group, any member can enter whenever space is available — ensuring fairness without starvation and allowing same-group batching for better throughput.
+     */
+    public boolean canEnter(Person p) {
+        // Bathroom empty → only the first in queue should enter
+        if (currentGroup.equals("N")) {
+            return waitingQueue.peek() == p;
+        }
 
+        // Bathroom occupied → must be same group, not full, 
+        // and person must be at front of queue or all earlier ones are same group
+        if (p.getGroup().equals(currentGroup) && currentCapacity < MAX_CAPACITY) {
+            // Ensure fairness (no skipping opposite group waiting earlier)
+            for (Person person : waitingQueue) {
+                if (person == p) break;
+                if (!person.getGroup().equals(currentGroup)) return false;
+            }
+            return true;
+        }
 
         return false;
-        
     }
 
     public void enter(Person p){
