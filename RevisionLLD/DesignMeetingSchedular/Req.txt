@@ -1,0 +1,24 @@
+Functional Requirements
+    - Users can schedule meetings.
+    - Meetings have:
+        - room, start time, end time, organizer, participants.
+        - A room cannot have overlapping meetings.
+
+    - A user cannot have overlapping meetings.
+    - Meetings can be cancelled.
+
+    - Support queries:
+        - Get meetings for room in a time range
+        - Get meetings for a user in a time range
+
+Non-Functional Requirements
+
+    Ask the interviewer:
+    “Do we expect concurrent scheduling from multiple threads?”
+    They say YES → SDE-2 requirement.
+
+    So you continue:
+    In-memory solution.
+    Must be thread-safe.
+    High throughput.
+    Avoid bottlenecks (no global lock).

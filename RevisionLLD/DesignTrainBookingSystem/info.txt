@@ -1,0 +1,18 @@
+/**
+* Single-file Java implementation of an SDE-2 level LLD for a train booking system.
+* - Multiple trains
+* - Multiple dates
+* - Train search by source, destination, date
+* - Booking system ensuring proper seat allocation (no overlapping reservations on same seat)
+* - Print bookings per train per date
+*
+* Strategy:
+* - Each Train has an ordered list of stations.
+* - For each (train, date) we create a TrainInstance that maintains seat occupancy.
+* - Seat occupancy is represented as a boolean[seats][segments] where segment = stations.size()-1
+* A seat is available for booking from station i to j if all occupancy[seat][i..j-1] are false.
+* - TrainInstance has a ReentrantLock to safely handle concurrent booking/search requests.
+*
+* This file contains a small demo in main() to show the seat-allocation behaviour requested in the prompt:
+* "for a date, if station 1 to 3 and 6 to 10 seat is filled then user who books station 4 to 5 should be shown for booking"
+*/
