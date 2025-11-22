@@ -1,0 +1,19 @@
+(Uber asked)
+
+### **Functional Requirements**
+
+    1. Multiple producers can publish messages to the queue.
+    2. Multiple consumers can independently read from the same queue.
+    3. Per-consumer offset ensures each consumer reads at its own pace.
+    4. Pull-based polling allows consumers to fetch messages on demand.
+    5. Message TTL support skips expired messages during polling.
+    6. FIFO ordering of messages for all consumers.
+    7. Support for multiple named queues via QueueManager.
+
+### **Non-Functional Requirements**
+
+    1. Thread-safe publishing and reading using locking.
+    2. Low-latency operations with O(1) amortized publish/poll.
+    3. Scalable design supporting many consumers and messages.
+    4. Highly maintainable OOP structure with clear separation of concerns.
+    5. Extensible architecture for adding DLQs, consumer groups, or partitions.
