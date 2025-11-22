@@ -1,3 +1,6 @@
+
+(Uber asked)
+
 Problem Statement:- (Asked in Uber)
     - Design an in-memory logging library with a clean API that supports setting logs and querying logs efficiently.
 
