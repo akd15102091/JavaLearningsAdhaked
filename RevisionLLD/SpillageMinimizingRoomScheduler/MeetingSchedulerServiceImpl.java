@@ -1,5 +1,7 @@
 package SpillageMinimizingRoomScheduler;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,31 +14,28 @@ public class MeetingSchedulerServiceImpl implements MeetingSchedulerService{
     public MeetingSchedulerServiceImpl(List<Room> roomList) {
         rooms = new HashMap<>();
         for (Room r : roomList) rooms.put(r.roomId, r);
-        this.auditLogManager = new AuditLogManager();
-    }
-
-    public AuditLogManager getAuditManager() {
-        return auditLogManager;
+        auditLogManager = new AuditLogManager();
     }
 
     @Override
     public boolean scheduleMeeting(Meeting meeting) {
+
         Room bestRoom = null;
         long bestSpillage = Long.MAX_VALUE;
 
-        // 1. find best room (minimize spillage)
+        // 1️⃣ Choose best room using "min spillage" + capacity fit
         for (Room room : rooms.values()) {
 
             if (room.capacity < meeting.requiredCapacity) continue;
 
             room.lock.readLock().lock();
             try {
-                Interval free = getFreeWindow(room, meeting.startTime, meeting.endTime);
+                Interval free = getFreeWindow(room, meeting.interval);
                 if (free == null) continue;
 
-                long windowSize = free.end - free.start;
-                long meetingSize = meeting.endTime - meeting.startTime;
-                long spillage = windowSize - meetingSize;
+                long freeDuration = Duration.between(free.start, free.end).toMinutes();
+                long meetingDuration = meeting.interval.durationMinutes();
+                long spillage = freeDuration - meetingDuration;
 
                 if (spillage < bestSpillage) {
                     bestSpillage = spillage;
@@ -50,18 +49,17 @@ public class MeetingSchedulerServiceImpl implements MeetingSchedulerService{
 
         if (bestRoom == null) return false;
 
-        // 2. write lock → final booking
+        // 2️⃣ Book under write lock (to avoid concurrency issues)
         return addMeetingToRoom(bestRoom, meeting);
     }
 
-    private boolean addMeetingToRoom(Room room, Meeting m) {
+    private boolean addMeetingToRoom(Room room, Meeting meeting) {
         room.lock.writeLock().lock();
         try {
-            // recheck to avoid race condition
-            if (!isAvailable(room, m.startTime, m.endTime)) return false;
+            if (!isAvailable(room, meeting.interval)) return false;
 
-            room.bookings.add(new Interval(m.startTime, m.endTime));
-            auditLogManager.log(room.roomId, m.meetingId);
+            room.bookings.add(meeting.interval);
+            auditLogManager.log(room.roomId, meeting.meetingId);
             return true;
 
         } finally {
@@ -69,37 +67,45 @@ public class MeetingSchedulerServiceImpl implements MeetingSchedulerService{
         }
     }
 
-    // Checks if interval overlaps with existing
-    private boolean isAvailable(Room room, long start, long end) {
-        Interval floor = room.bookings.floor(new Interval(start, end));
-        Interval ceil = room.bookings.ceiling(new Interval(start, end));
+    /* ============================================================
+                      AVAILABILITY CHECK
+       ============================================================ */
+    private boolean isAvailable(Room room, Interval meetingInterval) {
+        Interval floor = room.bookings.floor(meetingInterval);
+        Interval ceil = room.bookings.ceiling(meetingInterval);
 
-        if (floor != null && floor.end > start) return false;
-        if (ceil != null && ceil.start < end) return false;
+        if (floor != null && floor.overlaps(meetingInterval)) return false;
+        if (ceil != null && ceil.overlaps(meetingInterval)) return false;
 
         return true;
     }
 
-    // compute free window that fully covers meeting
-    private Interval getFreeWindow(Room room, long start, long end) {
-        if (!isAvailable(room, start, end)) return null;
+    /* ============================================================
+                     COMPUTE FREE WINDOW AROUND MEETING
+       ============================================================ */
+    private Interval getFreeWindow(Room room, Interval meetingInterval) {
 
-        Interval floor = room.bookings.floor(new Interval(start, end));
-        Interval ceil = room.bookings.ceiling(new Interval(start, end));
+        if (!isAvailable(room, meetingInterval)) return null;
 
-        long windowStart = (floor == null) ? Long.MIN_VALUE : floor.end;
-        long windowEnd = (ceil == null) ? Long.MAX_VALUE : ceil.start;
+        Interval floor = room.bookings.floor(meetingInterval);
+        Interval ceil = room.bookings.ceiling(meetingInterval);
 
-        if (windowStart <= start && windowEnd >= end) {
-            return new Interval(windowStart, windowEnd);
-        }
+        LocalDateTime freeStart = (floor == null) ? LocalDateTime.MIN : floor.end;
+        LocalDateTime freeEnd   = (ceil == null) ? LocalDateTime.MAX : ceil.start;
+
+        Interval fullWindow = new Interval(freeStart, freeEnd);
+
+        if (fullWindow.contains(meetingInterval)) return fullWindow;
         return null;
     }
 
     @Override
     public List<AuditLog> getRoomAuditLogs(String roomId) {
-        // Delegate to AuditLogManager
         return auditLogManager.getLogsForRoom(roomId);
+    }
+
+    public AuditLogManager getAuditManager() {
+        return auditLogManager;
     }
     
 }

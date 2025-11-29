@@ -6,12 +6,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class Room {
     String roomId;
     int capacity;
-    TreeSet<Interval> bookings;
+    TreeSet<Interval> bookings = new TreeSet<>();
     final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
     Room(String id, int cap) {
         this.roomId = id;
         this.capacity = cap;
-        this.bookings = new TreeSet<>();
     }
 }

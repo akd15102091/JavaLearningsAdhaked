@@ -2,14 +2,12 @@ package SpillageMinimizingRoomScheduler;
 
 public class Meeting {
     String meetingId;
-    long startTime;
-    long endTime;
+    Interval interval;
     int requiredCapacity;
 
-    Meeting(String id, long s, long e, int cap) {
+    Meeting(String id, Interval interval, int cap) {
         this.meetingId = id;
-        this.startTime = s;
-        this.endTime = e;
+        this.interval = interval;
         this.requiredCapacity = cap;
     }
 }
