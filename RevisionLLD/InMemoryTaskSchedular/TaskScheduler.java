@@ -59,7 +59,8 @@ public class TaskScheduler {
                     try {
                         lock.wait(waitTime);
                     } catch (InterruptedException ignored) {}
-                    continue;
+
+                    continue; // main thing...re-loop, re-calc delay, and re-check correct task
                 }
 
                 // Time to execute
@@ -80,5 +81,9 @@ public class TaskScheduler {
     public void shutdown() {
         running = false;
         executor.shutdown();
+    }
+
+    public void awaitTermination() throws InterruptedException {
+        executor.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS);
     }
 }
