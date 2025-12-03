@@ -1,6 +1,9 @@
 package UberLLDs.InMemoryFileSystem;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class FileSystem {
     // Root and current working directory
@@ -46,40 +49,83 @@ public class FileSystem {
         return "/" + String.join("/", names);
     }
 
-
-    // -------------- cd --------------
-    // Changes directory, supports *, ., ..
     public boolean cd(String path) {
         String[] parts = path.split("/");
-        Dir node = path.startsWith("/") ? root : current;
 
-        for (String p : parts) {
-            if (p.isEmpty() || p.equals(".")) continue;
+        // If absolute path -> start from root
+        // If relative path -> start from current directory
+        Dir start = path.startsWith("/") ? root : current;
 
-            if (p.equals("..")) {
-                if (node.parent != null) node = node.parent;
-                continue;
-            }
+        // Use helper DFS function to resolve wildcard possibilities
+        Dir result = resolve(start, parts, 0);
 
-            if (p.equals("*")) {
-                if (node.children.isEmpty()) return false;
-
-                // deterministic behavior → choose lexicographically smallest child
-                String smallest = node.children.keySet()
-                        .stream()
-                        .sorted()
-                        .findFirst()
-                        .get();
-
-                node = node.children.get(smallest);
-                continue;
-            }
-
-            if (!node.children.containsKey(p)) return false;
-            node = node.children.get(p);
-        }
-
-        current = node;
+        if (result == null) return false;
+        current = result;
         return true;
     }
+
+
+    /**
+     * Recursive resolver for cd wildcard:
+     *
+     * At each token:
+     *   "."   -> stay at same directory
+     *   ".."  -> go to parent (if exists)
+     *   "X"   -> go to child "X" if exists
+     *   "*"   -> try ".", then "..", then each child (in lexicographic order)
+     *
+     * Returns the directory reached after fully matching the path.
+     * Returns null if no valid path exists.
+     */
+    private Dir resolve(Dir node, String[] parts, int idx) {
+
+        // BASE CASE: all path tokens consumed
+        if (idx == parts.length) return node;
+
+        String token = parts[idx];
+
+        // Skip empty "" or "."
+        if (token.isEmpty() || token.equals(".")) {
+            return resolve(node, parts, idx + 1);
+        }
+
+        // Handle ".."
+        if (token.equals("..")) {
+            if (node.parent == null) return null;
+            return resolve(node.parent, parts, idx + 1);
+        }
+
+        // Handle "*"
+        if (token.equals("*")) {
+
+            // 1. Try staying in the same directory (".")
+            Dir stay = resolve(node, parts, idx + 1);
+            if (stay != null) return stay;
+
+            // 2. Try going to parent ("..")
+            if (node.parent != null) {
+                Dir up = resolve(node.parent, parts, idx + 1);
+                if (up != null) return up;
+            }
+
+            // 3. Try each child (sorted for deterministic behavior)
+            List<String> sortedChildren = new ArrayList<>(node.children.keySet());
+            Collections.sort(sortedChildren);
+
+            for (String childName : sortedChildren) {
+                Dir child = node.children.get(childName);
+                Dir next = resolve(child, parts, idx + 1);
+                if (next != null) return next;
+            }
+
+            // no valid option in wildcard
+            return null;
+        }
+
+        // Normal directory name
+        if (!node.children.containsKey(token)) return null;
+
+        return resolve(node.children.get(token), parts, idx + 1);
+    }
+
 }
