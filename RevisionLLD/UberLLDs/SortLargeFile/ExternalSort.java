@@ -15,8 +15,8 @@ public class ExternalSort {
 
     public static void main(String[] args) throws Exception {
 
-        File input = new File("input.txt");          // Your input file
-        File output = new File("sorted_output.txt"); // Final sorted file
+        File input = new File("UberLLDs/SortLargeFile/input.txt");          // Your input file
+        File output = new File("UberLLDs/SortLargeFile/sorted_output.txt"); // Final sorted file
 
         // Step 1: Split into sorted chunks
         List<File> chunks = createChunks(input);
